@@ -751,8 +751,8 @@ export default function AdminConsole() {
 
         <div className="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl relative z-10">
           <div className="flex flex-col items-center text-center mb-8 select-none">
-            <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 mb-4 shadow-lg shadow-sky-500/5">
-              <Shield className="w-8 h-8" />
+            <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 mb-4 shadow-lg shadow-sky-500/5 overflow-hidden">
+              <img src="/logo.png" alt="PG Admin Logo" className="w-12 h-12 rounded-xl object-cover" />
             </div>
             <h2 className="text-2xl font-black tracking-tight text-white">PG Admin Console</h2>
             <p className="text-xs font-bold text-slate-400 mt-2">
@@ -903,9 +903,7 @@ export default function AdminConsole() {
       {/* Sidebar for Desktop */}
       <aside className="hidden md:flex flex-col w-[260px] bg-slate-900 border-r border-slate-800/80 shrink-0 p-6">
         <div className="flex items-center gap-3.5 select-none mb-8">
-          <div className="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-sky-600/30">
-            <Shield className="w-5.5 h-5.5" />
-          </div>
+          <img src="/logo.png" alt="PG Admin Logo" className="w-10 h-10 rounded-xl object-cover shadow-md shrink-0" />
           <div className="flex flex-col">
             <span className="font-extrabold text-sm tracking-tight text-white">PG Admin</span>
             <span className="text-[9px] font-black text-sky-400 tracking-wider uppercase mt-0.5">Control Console</span>
@@ -946,9 +944,7 @@ export default function AdminConsole() {
       {/* Header Mobile / Navigation Bar */}
       <header className="md:hidden flex items-center justify-between bg-slate-900 border-b border-slate-800/80 px-5 py-4 shrink-0 w-full z-30">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white">
-            <Shield className="w-4.5 h-4.5" />
-          </div>
+          <img src="/logo.png" alt="PG Admin Logo" className="w-8 h-8 rounded-lg object-cover" />
           <span className="font-extrabold text-sm tracking-tight text-white">PG Admin</span>
         </div>
         <button
@@ -1704,7 +1700,7 @@ export default function AdminConsole() {
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-sky-500" />
+                    <img src="/logo.png" alt="PG Admin Logo" className="w-5 h-5 rounded-md object-cover" />
                     <span className="font-extrabold text-sm text-white">PG Admin</span>
                   </div>
                   <button onClick={() => setIsDrawerOpen(false)} className="p-1 rounded-full bg-slate-800 text-slate-450">
