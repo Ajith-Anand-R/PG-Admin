@@ -1,9 +1,8 @@
-const CACHE_NAME = "pg-admin-cache-v1";
+const CACHE_NAME = "pg-admin-cache-v2";
 const ASSETS = [
   "/",
   "/manifest.json",
-  "/icon-192.png",
-  "/icon-512.png"
+  "/logo.png"
 ];
 
 // Install Event
