@@ -1,0 +1,62 @@
+{
+  "components.json": {
+    "mtime": 1780933217.749539,
+    "ast_hash": "fc5c9e9a7b93eeb2f7b4e1ce0959e4a6",
+    "semantic_hash": ""
+  },
+  "eslint.config.mjs": {
+    "mtime": 1780935623.1069934,
+    "ast_hash": "c8c84f43d0dfe4c398e4cc111faa4198",
+    "semantic_hash": ""
+  },
+  "next.config.ts": {
+    "mtime": 1780933207.7425613,
+    "ast_hash": "6c7a30e2b859b2cdd7f9c9765123c18d",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1780933474.3700821,
+    "ast_hash": "8816ef2faf1feb745e96913c07d3abc5",
+    "semantic_hash": ""
+  },
+  "postcss.config.mjs": {
+    "mtime": 1780933452.83731,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": ""
+  },
+  "public/manifest.json": {
+    "mtime": 1780940923.8533652,
+    "ast_hash": "333966ed2df1d85677bd7ad599258b58",
+    "semantic_hash": ""
+  },
+  "public/sw.js": {
+    "mtime": 1780940928.9813716,
+    "ast_hash": "e4d1b6021b4118416dddaa0e33f8cf20",
+    "semantic_hash": ""
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1780989567.3896224,
+    "ast_hash": "8d035f8830e6eb9f4753360b0eb6c13c",
+    "semantic_hash": ""
+  },
+  "src/app/page.tsx": {
+    "mtime": 1781033035.105675,
+    "ast_hash": "a669696ff1c1ff10703156cfc81a6099",
+    "semantic_hash": ""
+  },
+  "src/lib/supabase.ts": {
+    "mtime": 1780933233.233028,
+    "ast_hash": "d5d043b0feab51dada34fb51b2456039",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1780933171.8693764,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": ""
+  },
+  "public/logo.png": {
+    "mtime": 1780940908.4690177,
+    "ast_hash": "33a748a77131d67462d7289d65a1f6c6",
+    "semantic_hash": ""
+  }
+}

@@ -708,14 +708,14 @@ export default function AdminConsole() {
         );
       case "payments":
         return payments.filter(p =>
-          p.tenants?.users?.name?.toLowerCase().includes(query) ||
+          (p.tenants?.users?.name || p.tenants?.name)?.toLowerCase().includes(query) ||
           p.pgs?.name?.toLowerCase().includes(query) ||
           p.status.toLowerCase().includes(query)
         );
       case "complaints":
         return complaints.filter(c =>
           c.title.toLowerCase().includes(query) ||
-          c.tenants?.users?.name?.toLowerCase().includes(query) ||
+          (c.tenants?.users?.name || c.tenants?.name)?.toLowerCase().includes(query) ||
           c.pgs?.name?.toLowerCase().includes(query)
         );
       case "logs":
@@ -1406,7 +1406,7 @@ export default function AdminConsole() {
                         {activeTab === "complaints" && (
                           <>
                             <td className="py-4 px-5 font-bold text-white">{item.title}</td>
-                            <td className="py-4 px-4 text-slate-300 font-bold">{item.tenants?.users?.name || "Unknown Tenant"}</td>
+                            <td className="py-4 px-4 text-slate-300 font-bold">{item.tenants?.users?.name || item.tenants?.name || "Unknown Tenant"}</td>
                             <td className="py-4 px-4">{item.pgs?.name || "N/A"}</td>
                             <td className="py-4 px-4">
                               <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
@@ -1640,7 +1640,7 @@ export default function AdminConsole() {
                           </span>
                         </div>
                         <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800/60 text-xs flex flex-col gap-1.5">
-                          <p className="text-slate-400">Tenant: <span className="font-bold text-slate-200">{item.tenants?.users?.name || "Unknown"}</span></p>
+                          <p className="text-slate-400">Tenant: <span className="font-bold text-slate-200">{item.tenants?.users?.name || item.tenants?.name || "Unknown"}</span></p>
                           <p className="text-slate-450">Staff: <span className="font-bold text-sky-400">{staffList.find(s => s.id === item.assigned_to)?.name || "Unassigned"}</span></p>
                           <p className="text-slate-400 mt-1">{item.description}</p>
                         </div>
