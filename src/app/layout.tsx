@@ -67,7 +67,8 @@ export default function RootLayout({
 
                 let refreshing = false;
                 navigator.serviceWorker.addEventListener('controllerchange', function() {
-                  if (!refreshing) {
+                  if (refreshing) return;
+                  if (navigator.serviceWorker.controller) {
                     refreshing = true;
                     window.location.reload();
                   }
