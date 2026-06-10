@@ -614,9 +614,8 @@ export default function AdminConsole() {
         payment_id: selectedItem.id,
         pg_id: selectedItem.pg_id,
         amount: Number(paymentAmount),
-        transaction_type: "credit",
-        status: "success",
-        reference_number: paymentRef
+        payment_method: paymentMethod,
+        reference_no: paymentRef
       });
 
       setToastMessage("Payment logged successfully!");
@@ -745,63 +744,63 @@ export default function AdminConsole() {
   if (!isLoggedIn || !isAuthorized) {
     return (
       <div className="flex-grow flex items-center justify-center p-6 bg-slate-950 text-white min-h-screen relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-[-20%] left-[-20%] w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-20%] right-[-20%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+        {/* Ambient Glows */}
+        <div className="absolute top-[-10%] left-[-10%] w-[700px] h-[700px] bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl relative z-10">
+        <div className="w-full max-w-md glass-panel p-9 rounded-3xl relative z-10">
           <div className="flex flex-col items-center text-center mb-8 select-none">
-            <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 mb-4 shadow-lg shadow-sky-500/5 overflow-hidden">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-violet-500/20 to-indigo-500/20 border border-violet-500/30 flex items-center justify-center mb-4 shadow-lg shadow-violet-500/10 overflow-hidden">
               <img src="/logo.png" alt="PG Admin Logo" className="w-12 h-12 rounded-xl object-cover" />
             </div>
-            <h2 className="text-2xl font-black tracking-tight text-white">PG Admin Console</h2>
-            <p className="text-xs font-bold text-slate-400 mt-2">
-              Platform administration portal. Access restricted to authorized Super Admins.
+            <h2 className="text-2xl font-black tracking-tight premium-gradient-text">PG Admin Terminal</h2>
+            <p className="text-[11px] font-bold text-slate-400 mt-2 max-w-[280px] leading-relaxed">
+              Unlock the central operations control terminal. Authorized Super Admins only.
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-4.5">
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
             {authError && (
-              <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-3 text-[11px] font-bold text-rose-400 flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
+              <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-3 text-[11px] font-bold text-rose-450 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
                 <span>{authError}</span>
               </div>
             )}
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Admin Email</label>
+              <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Admin Email</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@pgdesk.com"
-                className="bg-slate-950 border border-slate-800 text-white text-xs font-semibold px-4 h-12 rounded-xl focus:outline-hidden focus:border-sky-500"
+                className="bg-slate-950/50 border border-slate-800/80 text-white text-xs font-semibold px-4 h-12 rounded-xl focus:outline-hidden focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all placeholder-slate-600"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Password</label>
+              <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Password</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-slate-950 border border-slate-800 text-white text-xs font-semibold px-4 h-12 rounded-xl focus:outline-hidden focus:border-sky-500"
+                className="bg-slate-950/50 border border-slate-800/80 text-white text-xs font-semibold px-4 h-12 rounded-xl focus:outline-hidden focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all placeholder-slate-600"
               />
             </div>
 
             <button
               type="submit"
               disabled={authLoading}
-              className="mt-4 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-12 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md shadow-sky-600/30 flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50"
+              className="mt-3 glow-btn bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold h-12 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow-md shadow-violet-600/20 flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50"
             >
               {authLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
-                  <Lock className="w-4 h-4" />
+                  <Lock className="w-4 h-4 text-violet-200" />
                   <span>Authenticate Access</span>
                 </>
               )}
@@ -862,7 +861,7 @@ export default function AdminConsole() {
     setTenantPhone("");
     setTenantPgId(pgs.length > 0 ? String(pgs[0].id) : "");
     setTenantRoomId("");
-    setTenantDeposit("");
+    setTenantDeposit("1000");
     setModalType("add_tenant");
   };
 
@@ -901,12 +900,14 @@ export default function AdminConsole() {
       </AnimatePresence>
 
       {/* Sidebar for Desktop */}
-      <aside className="hidden md:flex flex-col w-[260px] bg-slate-900 border-r border-slate-800/80 shrink-0 p-6">
+      <aside className="hidden md:flex flex-col w-[260px] glass-panel border-r border-slate-850/80 shrink-0 p-6">
         <div className="flex items-center gap-3.5 select-none mb-8">
-          <img src="/logo.png" alt="PG Admin Logo" className="w-10 h-10 rounded-xl object-cover shadow-md shrink-0" />
+          <div className="p-0.5 rounded-lg bg-gradient-to-tr from-violet-500/30 to-indigo-500/30 border border-violet-500/20 shadow-md">
+            <img src="/logo.png" alt="PG Admin Logo" className="w-9 h-9 rounded-md object-cover shrink-0" />
+          </div>
           <div className="flex flex-col">
             <span className="font-extrabold text-sm tracking-tight text-white">PG Admin</span>
-            <span className="text-[9px] font-black text-sky-400 tracking-wider uppercase mt-0.5">Control Console</span>
+            <span className="text-[9px] font-black premium-gradient-text tracking-widest uppercase mt-0.5">Control Console</span>
           </div>
         </div>
 
@@ -922,18 +923,20 @@ export default function AdminConsole() {
         </nav>
 
         <div className="border-t border-slate-800/60 pt-4 flex flex-col gap-3 shrink-0">
-          <div className="flex items-center gap-3 bg-slate-950 border border-slate-850 p-3 rounded-2xl">
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold border border-slate-700">
-              SA
+          <div className="flex items-center gap-3 bg-slate-950/40 border border-slate-850/60 p-3 rounded-2xl">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-violet-500 to-indigo-500 p-[1.5px] shrink-0 shadow-sm shadow-violet-500/10">
+              <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-slate-200 font-extrabold text-xs">
+                SA
+              </div>
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-xs font-bold text-white truncate">{currentUser?.name || "Admin"}</span>
-              <span className="text-[8px] font-black uppercase text-sky-400 tracking-wider mt-0.5">Super Admin</span>
+              <span className="text-[8px] font-black uppercase premium-gradient-text tracking-wider mt-0.5">Super Admin</span>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center justify-center gap-2 w-full h-11 border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 hover:text-rose-350 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 w-full h-11 border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-450 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
@@ -942,14 +945,14 @@ export default function AdminConsole() {
       </aside>
 
       {/* Header Mobile / Navigation Bar */}
-      <header className="md:hidden flex items-center justify-between bg-slate-900 border-b border-slate-800/80 px-5 py-4 shrink-0 w-full z-30">
+      <header className="md:hidden flex items-center justify-between glass-panel border-b border-slate-850/80 px-5 py-4 shrink-0 w-full z-30">
         <div className="flex items-center gap-2.5">
           <img src="/logo.png" alt="PG Admin Logo" className="w-8 h-8 rounded-lg object-cover" />
           <span className="font-extrabold text-sm tracking-tight text-white">PG Admin</span>
         </div>
         <button
           onClick={() => setIsDrawerOpen(true)}
-          className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 text-slate-300"
+          className="w-9 h-9 rounded-lg bg-slate-950/50 flex items-center justify-center border border-slate-850/60 text-slate-350"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -1053,50 +1056,50 @@ export default function AdminConsole() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 shrink-0">
                 
                 {/* Tickets Console Summary */}
-                <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
-                  <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-rose-500/5 border border-rose-500/15 flex items-center justify-center text-rose-500">
+                <div className="glass-panel rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:scale-[1.01] select-none">
+                  <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-455 shadow-xs shadow-rose-500/5">
                     <AlertOctagon className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-black text-rose-400 uppercase tracking-widest leading-none">Support Desk</span>
+                    <span className="text-[10px] font-black text-rose-400 uppercase tracking-wider leading-none">Support Desk</span>
                     <h2 className="text-3xl font-black text-white mt-4">{stats.pendingComplaints}</h2>
                     <p className="text-xs font-bold text-slate-400 mt-2">Active complaints requiring resolution.</p>
                   </div>
-                  <button onClick={() => setActiveTab("complaints")} className="mt-6 border border-slate-800 hover:border-slate-700 bg-slate-950 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer">
+                  <button onClick={() => setActiveTab("complaints")} className="mt-6 glow-btn border border-slate-800 bg-slate-950/50 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-350 hover:text-white transition-all cursor-pointer">
                     Manage Support Tickets
                   </button>
                 </div>
 
                 {/* Subscriptions breakdown */}
-                <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-between">
+                <div className="glass-panel rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:scale-[1.01] select-none">
                   <div className="flex justify-between items-start">
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-black text-sky-400 uppercase tracking-widest leading-none">Subscription Billing</span>
+                      <span className="text-[10px] font-black text-violet-400 uppercase tracking-wider leading-none">Subscription Billing</span>
                       <span className="text-3xl font-black text-white mt-4">
                         {pgs.filter(p => p.subscription_plan === "pro" || p.subscription_plan === "premium").length}
                       </span>
                     </div>
-                    <span className="text-[10px] font-black bg-sky-500/15 border border-sky-500/30 text-sky-400 px-2 py-0.5 rounded-full uppercase shrink-0">Paid Plans</span>
+                    <span className="text-[9px] font-black bg-violet-500/10 border border-violet-500/25 text-violet-400 px-2.5 py-0.5 rounded-full uppercase shrink-0">Paid Plans</span>
                   </div>
                   <p className="text-xs font-bold text-slate-400 mt-2">PG businesses subscribed to standard premium tiers.</p>
-                  <button onClick={() => setActiveTab("pgs")} className="mt-6 border border-slate-800 hover:border-slate-700 bg-slate-950 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer">
+                  <button onClick={() => setActiveTab("pgs")} className="mt-6 glow-btn border border-slate-800 bg-slate-950/50 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-350 hover:text-white transition-all cursor-pointer">
                     Manage Properties
                   </button>
                 </div>
 
                 {/* Quick Boardings Stats */}
-                <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-between">
+                <div className="glass-panel rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:scale-[1.01] select-none">
                   <div className="flex justify-between items-start">
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none">Rooms Map</span>
+                      <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider leading-none">Rooms Map</span>
                       <span className="text-3xl font-black text-white mt-4">
                         {rooms.filter(r => r.beds?.some((b: any) => b.status === "available")).length}
                       </span>
                     </div>
-                    <span className="text-[10px] font-black bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded-full uppercase shrink-0">Rooms Available</span>
+                    <span className="text-[9px] font-black bg-emerald-500/10 border border-emerald-500/25 text-emerald-450 px-2.5 py-0.5 rounded-full uppercase shrink-0">Rooms Available</span>
                   </div>
                   <p className="text-xs font-bold text-slate-400 mt-2">Rooms with at least one unoccupied bed slot.</p>
-                  <button onClick={() => setActiveTab("rooms")} className="mt-6 border border-slate-800 hover:border-slate-700 bg-slate-950 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer">
+                  <button onClick={() => setActiveTab("rooms")} className="mt-6 glow-btn border border-slate-800 bg-slate-950/50 py-2.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-350 hover:text-white transition-all cursor-pointer">
                     View Beds Layout
                   </button>
                 </div>
@@ -1104,25 +1107,25 @@ export default function AdminConsole() {
               </div>
 
               {/* Latest Audit Logs Feed */}
-              <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 shrink-0 flex flex-col">
-                <div className="flex justify-between items-center pb-4 border-b border-slate-800 mb-4 select-none">
+              <div className="glass-panel rounded-2xl p-5 shrink-0 flex flex-col">
+                <div className="flex justify-between items-center pb-4 border-b border-slate-850 mb-4 select-none">
                   <h3 className="font-extrabold text-sm text-white flex items-center gap-2">
-                    <FileText className="w-4.5 h-4.5 text-sky-400" />
+                    <FileText className="w-4.5 h-4.5 text-violet-400" />
                     Latest System Activity
                   </h3>
-                  <button onClick={() => setActiveTab("logs")} className="text-[10px] font-black text-sky-400 uppercase tracking-wider hover:text-sky-300 cursor-pointer">
+                  <button onClick={() => setActiveTab("logs")} className="text-[10px] font-black premium-gradient-text uppercase tracking-wider hover:brightness-110 cursor-pointer">
                     View Logs Feed
                   </button>
                 </div>
 
                 <div className="flex flex-col gap-2.5 max-h-60 overflow-y-auto no-scrollbar">
                   {auditLogs.slice(0, 5).map((log) => (
-                    <div key={log.id} className="flex gap-3 text-xs bg-slate-950/40 p-3 rounded-xl border border-slate-800/40">
+                    <div key={log.id} className="flex gap-3 text-xs bg-slate-950/20 p-3 rounded-xl border border-slate-850/40 hover:bg-slate-950/35 transition-colors">
                       <div className="text-slate-500 font-semibold select-none shrink-0 w-24">
                         {new Date(log.created_at).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="font-black text-sky-400 uppercase tracking-wider text-[10px] block lg:inline mr-2">{log.action}</span>
+                        <span className="premium-gradient-text font-black tracking-wider text-[10px] block lg:inline mr-2">{log.action}</span>
                         <span className="text-slate-300 font-bold">{log.details}</span>
                       </div>
                       <div className="text-[10px] font-bold text-slate-400 shrink-0">
@@ -1141,17 +1144,17 @@ export default function AdminConsole() {
 
           {/* LIST VIEWS: PGs, Users, Tenants, Rooms, Payments, Complaints, Logs */}
           {activeTab !== "dashboard" && (
-            <div className="flex-grow flex flex-col min-h-0 bg-slate-900 border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl relative">
+            <div className="flex-grow flex flex-col min-h-0 glass-panel rounded-2xl overflow-hidden shadow-2xl relative">
               {isLoading && (
-                <div className="absolute inset-0 bg-slate-950/30 backdrop-blur-3xs flex items-center justify-center z-25">
-                  <div className="w-7 h-7 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
+                <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center z-25">
+                  <div className="w-7 h-7 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
                 </div>
               )}
 
               {/* Desktop view Table */}
               <div className="hidden lg:block flex-1 overflow-auto no-scrollbar">
                 <table className="w-full text-left border-collapse text-xs select-none">
-                  <thead className="bg-slate-950 border-b border-slate-800 sticky top-0 text-[10px] font-black text-slate-400 uppercase tracking-wider z-20">
+                  <thead className="bg-slate-950/70 border-b border-slate-850 sticky top-0 text-[10px] font-black text-slate-400 uppercase tracking-wider z-20">
                     {activeTab === "pgs" && (
                       <tr>
                         <th className="py-4.5 px-5">Property Name</th>
@@ -1180,7 +1183,7 @@ export default function AdminConsole() {
                         <th className="py-4.5 px-4">Property</th>
                         <th className="py-4.5 px-4">Allocated Room</th>
                         <th className="py-4.5 px-4">Deposit</th>
-                        <th className="py-4.5 px-4">Token Invite</th>
+                        <th className="py-4.5 px-4">Status / Invite</th>
                         <th className="py-4.5 px-5 text-right">Actions</th>
                       </tr>
                     )}
@@ -1228,9 +1231,9 @@ export default function AdminConsole() {
                       </tr>
                     )}
                   </thead>
-                  <tbody className="divide-y divide-slate-800/40 text-slate-350 font-medium">
+                  <tbody className="divide-y divide-slate-850/30 text-slate-350 font-medium">
                     {filteredItems.map((item) => (
-                      <tr key={item.id} className="hover:bg-slate-950/20 transition-colors">
+                      <tr key={item.id} className="hover:bg-slate-950/45 border-b border-slate-850/30 hover:text-white transition-all duration-200">
                         
                         {/* PGs Row */}
                         {activeTab === "pgs" && (
@@ -1239,12 +1242,16 @@ export default function AdminConsole() {
                             <td className="py-4 px-4 truncate max-w-40">{item.address}</td>
                             <td className="py-4 px-4 font-bold text-slate-300">{item.users?.name || "Unassigned"}</td>
                             <td className="py-4 px-4">{item.phone}</td>
-                            <td className="py-4 px-4 uppercase tracking-wider text-[10px] font-black text-sky-400">{item.subscription_plan || "free"}</td>
                             <td className="py-4 px-4">
-                              <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                              <span className="px-2.5 py-0.5 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-300 text-[10px] font-black uppercase tracking-wider">
+                                {item.subscription_plan || "free"}
+                              </span>
+                            </td>
+                            <td className="py-4 px-4">
+                              <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                                 item.is_active !== false
-                                  ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-                                  : "bg-rose-500/10 border-rose-500/30 text-rose-400"
+                                  ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                                  : "bg-rose-500/10 border-rose-500/20 text-rose-455"
                               }`}>
                                 {item.is_active !== false ? "active" : "suspended"}
                               </span>
@@ -1252,10 +1259,10 @@ export default function AdminConsole() {
                             <td className="py-4 px-5 text-right flex items-center justify-end gap-1.5 h-full">
                               <button
                                 onClick={() => handleTogglePg(item.id, item.is_active !== false)}
-                                className={`p-1.5 rounded-lg border text-xs cursor-pointer ${
+                                className={`p-1.5 rounded-lg border text-xs cursor-pointer transition-all duration-200 ${
                                   item.is_active !== false
-                                    ? "bg-rose-500/10 border-rose-500/30 text-rose-450 hover:bg-rose-500/20"
-                                    : "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20"
+                                    ? "bg-rose-500/5 border-rose-500/20 text-rose-450 hover:bg-rose-500/15"
+                                    : "bg-emerald-500/5 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/15"
                                 }`}
                                 title={item.is_active !== false ? "Suspend PG" : "Activate PG"}
                               >
@@ -1263,7 +1270,7 @@ export default function AdminConsole() {
                               </button>
                               <button
                                 onClick={() => openEditPgModal(item)}
-                                className="p-1.5 rounded-lg border border-slate-800 bg-slate-950 text-slate-400 hover:text-white cursor-pointer"
+                                className="p-1.5 rounded-lg border border-slate-800 bg-slate-950/50 text-slate-400 hover:text-white hover:border-slate-700 transition-all duration-200 cursor-pointer"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
@@ -1278,12 +1285,12 @@ export default function AdminConsole() {
                             <td className="py-4 px-4 truncate max-w-40">{item.email}</td>
                             <td className="py-4 px-4">{item.phone || "N/A"}</td>
                             <td className="py-4 px-4">
-                              <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
-                                item.role === "Super Admin" ? "bg-rose-500/10 text-rose-400 border border-rose-500/20" :
-                                item.role === "Owner" ? "bg-sky-500/10 text-sky-400 border border-sky-500/20" :
-                                item.role === "Manager" ? "bg-violet-500/10 text-violet-400 border border-violet-500/20" :
-                                item.role === "Staff" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
-                                "bg-slate-800 text-slate-300"
+                              <span className={`text-[9.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                                item.role === "Super Admin" ? "bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-xs shadow-rose-500/5" :
+                                item.role === "Owner" ? "bg-violet-500/10 text-violet-350 border-violet-500/20 shadow-xs shadow-violet-500/5" :
+                                item.role === "Manager" ? "bg-indigo-500/10 text-indigo-350 border-indigo-500/20 shadow-xs shadow-indigo-500/5" :
+                                item.role === "Staff" ? "bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-xs shadow-amber-500/5" :
+                                "bg-slate-950/40 text-slate-300 border-slate-800/80"
                               }`}>
                                 {item.role}
                               </span>
@@ -1293,7 +1300,7 @@ export default function AdminConsole() {
                               {item.id !== currentUser.id && (
                                 <button
                                   onClick={() => openEditUserModal(item)}
-                                  className="p-1.5 rounded-lg border border-slate-800 bg-slate-950 text-slate-400 hover:text-white cursor-pointer"
+                                  className="p-1.5 rounded-lg border border-slate-800 bg-slate-950/50 text-slate-400 hover:text-white hover:border-slate-700 transition-all duration-200 cursor-pointer"
                                 >
                                   <Edit2 className="w-3.5 h-3.5" />
                                 </button>
@@ -1311,24 +1318,40 @@ export default function AdminConsole() {
                               <span className="text-[10px] text-slate-500 font-semibold mt-0.5">{item.phone}</span>
                             </td>
                             <td className="py-4 px-4 font-semibold text-slate-300">{item.pgs?.name || "Unknown"}</td>
-                            <td className="py-4 px-4 font-bold text-slate-400">{item.rooms?.room_number || "Unassigned"}</td>
+                            <td className="py-4 px-4 font-black text-slate-300">{item.rooms?.room_number ? `Room ${item.rooms.room_number}` : "Unassigned"}</td>
                             <td className="py-4 px-4">₹{item.deposit?.toLocaleString("en-IN") || "0"}</td>
                             <td className="py-4 px-4">
                               {item.user_id ? (
-                                <span className="text-emerald-450 font-bold text-[10px] flex items-center gap-1">
-                                  <CheckCircle className="w-3 h-3 text-emerald-500" /> Bound
-                                </span>
+                                item.status === "notice" ? (
+                                  <div className="flex flex-col gap-1">
+                                    <span className="text-amber-450 font-bold text-[10px] bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-lg w-max flex items-center gap-1.5">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-amber-505 animate-pulse" /> Notice (Leaves: {item.vacate_date})
+                                    </span>
+                                    {item.notice_date && (
+                                      <span className="text-[9px] text-slate-400 font-semibold">
+                                        Notice: {new Date(item.notice_date).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                                      </span>
+                                    )}
+                                    <span className={`text-[10px] font-black ${item.refund_eligible ? 'text-emerald-450' : 'text-rose-455'}`}>
+                                      {item.refund_eligible ? 'Refund: ₹1,000 (Notice OK)' : 'No Refund (Short Notice)'}
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <span className="text-emerald-455 font-bold text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-lg w-max flex items-center gap-1.5">
+                                    <CheckCircle className="w-3 h-3 text-emerald-500" /> Active
+                                  </span>
+                                )
                               ) : (
-                                <span className="font-mono text-[10px] bg-slate-950 border border-slate-800/80 px-2 py-0.5 rounded text-sky-400">
+                                <span className="font-mono text-[10px] bg-slate-950/60 border border-slate-850/80 px-2.5 py-0.5 rounded-lg text-violet-350 font-bold select-all">
                                   {item.invite_token}
                                 </span>
                               )}
                             </td>
                             <td className="py-4 px-5 text-right">
-                              {item.status === "active" && (
+                              {(item.status === "active" || item.status === "notice") && (
                                 <button
                                   onClick={() => handleEvictTenant(item)}
-                                  className="p-1.5 rounded-lg border border-rose-500/20 bg-rose-500/5 text-rose-400 hover:text-rose-300 cursor-pointer"
+                                  className="p-1.5 rounded-lg border border-rose-500/20 bg-rose-500/5 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-all duration-200 cursor-pointer"
                                   title="Checkout/Evict Resident"
                                 >
                                   <XCircle className="w-3.5 h-3.5" />
@@ -1350,18 +1373,18 @@ export default function AdminConsole() {
                               {(item.beds || []).map((bed: any, bIdx: number) => (
                                 <span
                                   key={bed.id}
-                                  className={`w-2.5 h-2.5 rounded-full ${
-                                    bed.status === "occupied" ? "bg-rose-500" : "bg-emerald-500"
+                                  className={`w-2.5 h-2.5 rounded-full shadow-xs ${
+                                    bed.status === "occupied" ? "bg-rose-500 shadow-rose-500/30" : "bg-emerald-500 shadow-emerald-500/30"
                                   }`}
                                   title={`${bed.bed_number}: ${bed.status}`}
                                 />
                               ))}
                             </td>
                             <td className="py-4 px-5">
-                              <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                                 (item.beds || []).every((b: any) => b.status === "occupied")
-                                  ? "bg-rose-500/10 text-rose-400 border border-rose-500/20"
-                                  : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                  ? "bg-rose-500/10 border-rose-500/20 text-rose-455"
+                                  : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
                               }`}>
                                 {(item.beds || []).every((b: any) => b.status === "occupied") ? "Full" : "Available"}
                               </span>
@@ -1382,7 +1405,7 @@ export default function AdminConsole() {
                             <td className="py-4 px-4">
                               <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                                 item.status === "paid" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-450" :
-                                item.status === "overdue" ? "bg-rose-500/10 border-rose-500/20 text-rose-450 animate-pulse" :
+                                item.status === "overdue" ? "bg-rose-500/10 border-rose-500/20 text-rose-455 animate-pulse" :
                                 "bg-amber-500/10 border-amber-500/20 text-amber-450"
                               }`}>
                                 {item.status}
@@ -1392,7 +1415,7 @@ export default function AdminConsole() {
                               {item.status !== "paid" && (
                                 <button
                                   onClick={() => openCollectRentModal(item)}
-                                  className="p-1.5 rounded-lg border border-sky-500/20 bg-sky-500/5 text-sky-400 hover:text-sky-350 cursor-pointer"
+                                  className="p-1.5 rounded-lg border border-sky-500/20 bg-sky-500/5 text-sky-400 hover:text-sky-350 hover:bg-sky-500/10 transition-all duration-200 cursor-pointer"
                                   title="Manually Log Payment"
                                 >
                                   <CreditCard className="w-3.5 h-3.5" />
@@ -1409,10 +1432,10 @@ export default function AdminConsole() {
                             <td className="py-4 px-4 text-slate-300 font-bold">{item.tenants?.users?.name || item.tenants?.name || "Unknown Tenant"}</td>
                             <td className="py-4 px-4">{item.pgs?.name || "N/A"}</td>
                             <td className="py-4 px-4">
-                              <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                                item.severity === "high" ? "bg-rose-500/15 text-rose-400" :
-                                item.severity === "medium" ? "bg-amber-500/15 text-amber-400" :
-                                "bg-sky-500/15 text-sky-400"
+                              <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                                item.severity === "high" ? "bg-rose-500/10 border-rose-500/20 text-rose-455 shadow-xs shadow-rose-500/5" :
+                                item.severity === "medium" ? "bg-amber-500/10 border-amber-500/20 text-amber-400 shadow-xs shadow-amber-500/5" :
+                                "bg-sky-500/10 border-sky-500/20 text-sky-400 shadow-xs shadow-sky-500/5"
                               }`}>
                                 {item.severity}
                               </span>
@@ -1421,7 +1444,7 @@ export default function AdminConsole() {
                               {staffList.find(s => s.id === item.assigned_to)?.name || "Unassigned"}
                             </td>
                             <td className="py-4 px-4">
-                              <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                              <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                                 item.status === "resolved" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" :
                                 item.status === "in_progress" ? "bg-sky-500/10 border-sky-500/20 text-sky-400" :
                                 "bg-amber-500/10 border-amber-500/20 text-amber-400"
@@ -1432,14 +1455,14 @@ export default function AdminConsole() {
                             <td className="py-4 px-5 text-right flex items-center justify-end gap-1.5 h-full">
                               <button
                                 onClick={() => handleUpdateComplaintStatus(item.id, item.status)}
-                                className="p-1.5 rounded-lg border border-slate-800 bg-slate-950 text-slate-400 hover:text-white cursor-pointer"
+                                className="p-1.5 rounded-lg border border-slate-800 bg-slate-950 text-slate-400 hover:text-white hover:border-slate-700 transition-all duration-200 cursor-pointer"
                                 title="Cycle Status"
                               >
                                 <CheckCircle className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => openAssignStaffModal(item)}
-                                className="p-1.5 rounded-lg border border-sky-500/20 bg-sky-500/5 text-sky-400 hover:text-white cursor-pointer"
+                                className="p-1.5 rounded-lg border border-sky-500/20 bg-sky-500/5 text-sky-400 hover:text-white hover:bg-sky-500/10 transition-all duration-200 cursor-pointer"
                                 title="Reassign Staff"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
@@ -1454,7 +1477,7 @@ export default function AdminConsole() {
                             <td className="py-4 px-5 text-slate-500 select-none font-bold">
                               {new Date(item.created_at).toLocaleString("en-IN")}
                             </td>
-                            <td className="py-4 px-4 uppercase tracking-wider font-black text-sky-400 text-[10px]">{item.action}</td>
+                            <td className="py-4 px-4 uppercase tracking-wider premium-gradient-text font-black text-[10px]">{item.action}</td>
                             <td className="py-4 px-4 font-bold text-slate-200">{item.details}</td>
                             <td className="py-4 px-5 text-slate-400">{item.users?.name || "System/Trigger"}</td>
                           </>
@@ -1476,7 +1499,7 @@ export default function AdminConsole() {
               {/* Mobile View Card List */}
               <div className="lg:hidden flex-1 overflow-y-auto p-4 flex flex-col gap-4 no-scrollbar">
                 {filteredItems.map((item) => (
-                  <div key={item.id} className="bg-slate-950/40 border border-slate-800/80 rounded-2xl p-4.5 flex flex-col gap-3.5 relative overflow-hidden">
+                  <div key={item.id} className="bg-slate-950/20 border border-slate-850/40 rounded-2xl p-4.5 flex flex-col gap-3.5 relative overflow-hidden">
                     
                     {/* PG Mobile Card */}
                     {activeTab === "pgs" && (
@@ -1486,26 +1509,26 @@ export default function AdminConsole() {
                             <span className="font-extrabold text-white text-xs leading-none truncate">{item.name}</span>
                             <span className="text-[10px] text-slate-500 font-bold mt-1.5 uppercase tracking-wider">Plan: {item.subscription_plan || "free"}</span>
                           </div>
-                          <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${
-                            item.is_active !== false ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" : "bg-rose-500/10 border-rose-500/30 text-rose-400"
+                          <span className={`text-[8.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            item.is_active !== false ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-rose-500/10 border-rose-500/20 text-rose-455"
                           }`}>
                             {item.is_active !== false ? "active" : "suspended"}
                           </span>
                         </div>
-                        <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800/60 text-xs flex flex-col gap-1.5">
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-850/45 text-xs flex flex-col gap-1.5">
                           <p className="text-slate-400">Owner: <span className="font-bold text-slate-200">{item.users?.name || "Unassigned"}</span></p>
                           <p className="text-slate-400 truncate">Address: <span className="font-semibold text-slate-300">{item.address}</span></p>
                         </div>
-                        <div className="flex justify-end gap-2 pt-1 border-t border-slate-900">
+                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-850/30">
                           <button
                             onClick={() => handleTogglePg(item.id, item.is_active !== false)}
-                            className={`h-11 px-4 rounded-xl border text-xs font-extrabold uppercase tracking-wider cursor-pointer ${
-                              item.is_active !== false ? "bg-rose-500/10 border-rose-500/30 text-rose-400" : "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                            className={`h-11 px-4 rounded-xl border text-xs font-extrabold uppercase tracking-wider cursor-pointer transition-all duration-200 ${
+                              item.is_active !== false ? "bg-rose-500/5 border-rose-500/20 text-rose-450 hover:bg-rose-500/10" : "bg-emerald-500/5 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10"
                             }`}
                           >
                             {item.is_active !== false ? "Suspend" : "Activate"}
                           </button>
-                          <button onClick={() => openEditPgModal(item)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+                          <button onClick={() => openEditPgModal(item)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950/50 text-slate-350 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:text-white transition-all duration-200">
                             Edit details
                           </button>
                         </div>
@@ -1520,24 +1543,24 @@ export default function AdminConsole() {
                             <span className="font-bold text-white text-xs truncate">{item.name}</span>
                             <span className="text-[9.5px] text-slate-500 mt-1 truncate">{item.email}</span>
                           </div>
-                          <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                            item.role === "Super Admin" ? "bg-rose-500/10 text-rose-400" :
-                            item.role === "Owner" ? "bg-sky-500/10 text-sky-400" :
-                            item.role === "Manager" ? "bg-violet-500/10 text-violet-400" :
-                            item.role === "Staff" ? "bg-amber-500/10 text-amber-400" :
-                            "bg-slate-800 text-slate-300"
+                          <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            item.role === "Super Admin" ? "bg-rose-500/10 border-rose-500/20 text-rose-400" :
+                            item.role === "Owner" ? "bg-violet-500/10 border-violet-500/20 text-violet-300" :
+                            item.role === "Manager" ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-300" :
+                            item.role === "Staff" ? "bg-amber-500/10 border-amber-500/20 text-amber-400" :
+                            "bg-slate-800 text-slate-300 border-transparent"
                           }`}>
                             {item.role}
                           </span>
                         </div>
-                        <div className="text-xs text-slate-400 flex justify-between items-center bg-slate-900/40 p-2.5 rounded-xl border border-slate-800/40">
+                        <div className="text-xs text-slate-400 flex justify-between items-center bg-slate-950/40 p-2.5 rounded-xl border border-slate-850/45">
                           <span>Phone: <span className="font-bold text-slate-200">{item.phone || "N/A"}</span></span>
                           <span>PG ID: <span className="font-bold text-slate-200">#{item.pg_id || "Global"}</span></span>
                         </div>
                         {item.id !== currentUser.id && (
-                          <div className="flex justify-end pt-1 border-t border-slate-900">
-                            <button onClick={() => openEditUserModal(item)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
-                              Edit credentials & Role
+                          <div className="flex justify-end pt-2 border-t border-slate-850/30">
+                            <button onClick={() => openEditUserModal(item)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950/50 text-slate-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:text-white transition-all duration-200">
+                              Edit Credentials & Role
                             </button>
                           </div>
                         )}
@@ -1554,14 +1577,14 @@ export default function AdminConsole() {
                           </div>
                           <span className="text-xs font-black text-slate-400">Room {item.rooms?.room_number || "N/A"}</span>
                         </div>
-                        <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800/60 text-xs flex flex-col gap-1.5">
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-850/45 text-xs flex flex-col gap-1.5">
                           <p className="text-slate-400">PG: <span className="font-bold text-slate-200">{item.pgs?.name || "Unknown"}</span></p>
                           <p className="text-slate-400">Deposit: <span className="font-bold text-slate-350">₹{item.deposit}</span></p>
-                          <p className="text-slate-400 truncate">Token: <span className="font-mono text-sky-400 font-bold bg-slate-950 px-2 py-0.5 rounded ml-1">{item.user_id ? "Bound Profile" : item.invite_token}</span></p>
+                          <p className="text-slate-400 truncate">Token: <span className="font-mono text-violet-350 font-bold bg-slate-950/60 border border-slate-850/80 px-2 py-0.5 rounded ml-1">{item.user_id ? "Bound Profile" : item.invite_token}</span></p>
                         </div>
                         {item.status === "active" && (
-                          <div className="flex justify-end pt-1 border-t border-slate-900">
-                            <button onClick={() => handleEvictTenant(item)} className="h-11 px-4 rounded-xl border border-rose-500/20 bg-rose-500/5 text-rose-450 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+                          <div className="flex justify-end pt-2 border-t border-slate-850/30">
+                            <button onClick={() => handleEvictTenant(item)} className="h-11 px-4 rounded-xl border border-rose-500/20 bg-rose-500/5 text-rose-450 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:bg-rose-500/10 transition-all duration-200">
                               Checkout Resident
                             </button>
                           </div>
@@ -1577,15 +1600,15 @@ export default function AdminConsole() {
                             <span className="font-bold text-white text-xs">{item.room_number}</span>
                             <span className="text-[9.5px] text-slate-500 mt-0.5">Floor {item.floor} | {item.capacity} Bed Capacity</span>
                           </div>
-                          <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                            (item.beds || []).every((b: any) => b.status === "occupied") ? "bg-rose-500/10 text-rose-400" : "bg-emerald-500/10 text-emerald-400"
+                          <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            (item.beds || []).every((b: any) => b.status === "occupied") ? "bg-rose-500/10 border-rose-500/20 text-rose-455" : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
                           }`}>
                             {(item.beds || []).every((b: any) => b.status === "occupied") ? "Full" : "Available"}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center text-xs text-slate-400 bg-slate-900/40 p-2.5 rounded-xl border border-slate-800/40">
+                        <div className="flex justify-between items-center text-xs text-slate-400 bg-slate-950/40 p-2.5 rounded-xl border border-slate-850/45">
                           <span>Rent: <span className="font-bold text-slate-200">₹{item.rent}</span></span>
-                          <span className="flex gap-1">
+                          <span className="flex gap-1.5">
                             Beds:
                             {(item.beds || []).map((bed: any) => (
                               <span key={bed.id} className={`w-2 h-2 rounded-full ${bed.status === "occupied" ? "bg-rose-500" : "bg-emerald-500"}`} />
@@ -1603,21 +1626,21 @@ export default function AdminConsole() {
                             <span className="font-bold text-white text-xs">{item.tenants?.users?.name || item.tenants?.name || "Resident"}</span>
                             <span className="text-[9.5px] text-slate-500 mt-0.5">Month: {item.month}</span>
                           </div>
-                          <span className={`text-[9.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
-                            item.status === "paid" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-amber-500/10 border-amber-500/20 text-amber-400 animate-pulse"
+                          <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            item.status === "paid" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-rose-500/10 border-rose-500/20 text-rose-455 animate-pulse"
                           }`}>
                             {item.status}
                           </span>
                         </div>
-                        <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800/60 text-xs flex flex-col gap-1">
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-850/45 text-xs flex flex-col gap-1">
                           <p className="text-slate-400">PG: <span className="font-bold text-slate-200">{item.pgs?.name || "N/A"}</span></p>
                           <p className="text-slate-400 font-bold">Amount: <span className="text-white">₹{item.amount}</span></p>
                           <p className="text-slate-400">Due: <span className="font-semibold text-slate-300">{item.due_date}</span></p>
                           <p className="text-slate-450 truncate">Ref: <span className="font-mono text-slate-500">{item.reference_code || "N/A"}</span></p>
                         </div>
                         {item.status !== "paid" && (
-                          <div className="flex justify-end pt-1 border-t border-slate-900">
-                            <button onClick={() => openCollectRentModal(item)} className="h-11 px-4 rounded-xl border border-sky-500/25 bg-sky-500/5 text-sky-400 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+                          <div className="flex justify-end pt-2 border-t border-slate-850/30">
+                            <button onClick={() => openCollectRentModal(item)} className="h-11 px-4 rounded-xl border border-violet-500/20 bg-violet-500/5 text-violet-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:bg-violet-500/10 transition-all duration-200">
                               Record Payment
                             </button>
                           </div>
@@ -1633,22 +1656,22 @@ export default function AdminConsole() {
                             <span className="font-bold text-white text-xs">{item.title}</span>
                             <span className="text-[9.5px] text-slate-500 mt-0.5">Severity: <span className="text-rose-450 uppercase font-black">{item.severity}</span></span>
                           </div>
-                          <span className={`text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                            item.status === "resolved" ? "bg-emerald-500/15 text-emerald-400" : "bg-amber-500/15 text-amber-400 animate-pulse"
+                          <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            item.status === "resolved" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-amber-500/10 border-amber-500/20 text-amber-400 animate-pulse"
                           }`}>
                             {item.status}
                           </span>
                         </div>
-                        <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800/60 text-xs flex flex-col gap-1.5">
+                        <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-850/45 text-xs flex flex-col gap-1.5">
                           <p className="text-slate-400">Tenant: <span className="font-bold text-slate-200">{item.tenants?.users?.name || item.tenants?.name || "Unknown"}</span></p>
-                          <p className="text-slate-450">Staff: <span className="font-bold text-sky-400">{staffList.find(s => s.id === item.assigned_to)?.name || "Unassigned"}</span></p>
+                          <p className="text-slate-450">Staff: <span className="font-bold text-violet-350">{staffList.find(s => s.id === item.assigned_to)?.name || "Unassigned"}</span></p>
                           <p className="text-slate-400 mt-1">{item.description}</p>
                         </div>
-                        <div className="flex justify-end gap-2 pt-1 border-t border-slate-900">
-                          <button onClick={() => handleUpdateComplaintStatus(item.id, item.status)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-850/30">
+                          <button onClick={() => handleUpdateComplaintStatus(item.id, item.status)} className="h-11 px-4 rounded-xl border border-slate-800 bg-slate-950/50 text-slate-350 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:text-white transition-all duration-200">
                             Cycle status
                           </button>
-                          <button onClick={() => openAssignStaffModal(item)} className="h-11 px-4 rounded-xl border border-sky-500/20 bg-sky-500/5 text-sky-450 text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+                          <button onClick={() => openAssignStaffModal(item)} className="h-11 px-4 rounded-xl border border-violet-500/20 bg-violet-500/5 text-violet-300 text-xs font-extrabold uppercase tracking-wider cursor-pointer hover:bg-violet-500/10 transition-all duration-200">
                             Assign Staff
                           </button>
                         </div>
@@ -1660,7 +1683,7 @@ export default function AdminConsole() {
                       <>
                         <div className="flex justify-between items-start text-xs font-semibold">
                           <span className="text-slate-500">{new Date(item.created_at).toLocaleString("en-IN")}</span>
-                          <span className="text-sky-450 font-black uppercase tracking-wider text-[9px]">{item.action}</span>
+                          <span className="premium-gradient-text font-black uppercase tracking-wider text-[9px]">{item.action}</span>
                         </div>
                         <p className="text-xs font-bold text-slate-200 mt-1">{item.details}</p>
                         <span className="text-[10px] text-slate-550 block mt-2 text-right">by {item.users?.name || "System"}</span>
@@ -1695,7 +1718,7 @@ export default function AdminConsole() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
-              className="absolute right-0 top-0 bottom-0 w-[270px] bg-slate-900 border-l border-slate-800 p-6 z-20 flex flex-col justify-between h-full"
+              className="absolute right-0 top-0 bottom-0 w-[270px] glass-panel border-l border-slate-850/80 p-6 z-20 flex flex-col justify-between h-full"
             >
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center">
@@ -1703,8 +1726,8 @@ export default function AdminConsole() {
                     <img src="/logo.png" alt="PG Admin Logo" className="w-5 h-5 rounded-md object-cover" />
                     <span className="font-extrabold text-sm text-white">PG Admin</span>
                   </div>
-                  <button onClick={() => setIsDrawerOpen(false)} className="p-1 rounded-full bg-slate-800 text-slate-450">
-                    <X className="w-5 h-5" />
+                  <button onClick={() => setIsDrawerOpen(false)} className="w-8 h-8 rounded-lg bg-slate-950/50 flex items-center justify-center border border-slate-850/60 text-slate-400">
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -1721,16 +1744,20 @@ export default function AdminConsole() {
               </div>
 
               <div className="flex flex-col gap-3.5 border-t border-slate-800/80 pt-4">
-                <div className="flex items-center gap-3 bg-slate-950 p-3 rounded-2xl border border-slate-850">
-                  <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-extrabold">SA</div>
+                <div className="flex items-center gap-3 bg-slate-950/40 border border-slate-850/60 p-3 rounded-2xl">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-violet-500 to-indigo-500 p-[1.5px] shrink-0 shadow-sm shadow-violet-500/10">
+                    <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-slate-200 font-extrabold text-xs">
+                      SA
+                    </div>
+                  </div>
                   <div className="flex flex-col min-w-0">
                     <span className="text-xs font-bold text-white truncate">{currentUser?.name}</span>
-                    <span className="text-[8px] font-black uppercase text-sky-400 mt-0.5 tracking-wider">Super Admin</span>
+                    <span className="text-[8px] font-black uppercase premium-gradient-text tracking-wider mt-0.5">Super Admin</span>
                   </div>
                 </div>
                 <button
                   onClick={() => { setIsDrawerOpen(false); handleLogout(); }}
-                  className="flex items-center justify-center gap-2 w-full h-11 border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-2 w-full h-11 border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-450 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Sign Out</span>
@@ -1757,12 +1784,12 @@ export default function AdminConsole() {
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 relative z-20 shadow-2xl flex flex-col gap-5 text-left text-slate-100"
+              className="glass-panel border border-slate-850/80 rounded-3xl w-full max-w-md p-6 relative z-20 shadow-2xl flex flex-col gap-5.5 text-left text-slate-100"
             >
               
-              <div className="flex justify-between items-center border-b border-slate-800 pb-3">
+              <div className="flex justify-between items-center border-b border-slate-850/40 pb-3">
                 <h3 className="font-extrabold text-sm flex items-center gap-2">
-                  <Shield className="w-4.5 h-4.5 text-sky-400" />
+                  <Shield className="w-4.5 h-4.5 text-violet-400" />
                   {modalType === "add_pg" && "Register PG Property"}
                   {modalType === "edit_pg" && "Edit Property Details"}
                   {modalType === "edit_user" && "Update User Role"}
@@ -1771,8 +1798,8 @@ export default function AdminConsole() {
                   {modalType === "collect_rent" && "Log Payment Record"}
                   {modalType === "assign_staff" && "Reassign Support Staff"}
                 </h3>
-                <button onClick={() => setModalType(null)} className="p-1 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer">
-                  <X className="w-4.5 h-4.5" />
+                <button onClick={() => setModalType(null)} className="p-1.5 rounded-xl bg-slate-950/50 border border-slate-850/60 text-slate-400 hover:text-white hover:border-slate-700 transition-all cursor-pointer">
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
@@ -1781,19 +1808,19 @@ export default function AdminConsole() {
                 <form onSubmit={modalType === "add_pg" ? handleCreatePgSubmit : handleEditPgSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">PG Business Name</label>
-                    <input type="text" required value={pgName} onChange={(e) => setPgName(e.target.value)} placeholder="e.g. Olive Co-Living" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={pgName} onChange={(e) => setPgName(e.target.value)} placeholder="e.g. Olive Co-Living" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Address Location</label>
-                    <input type="text" required value={pgAddress} onChange={(e) => setPgAddress(e.target.value)} placeholder="e.g. Koramangala Layout" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={pgAddress} onChange={(e) => setPgAddress(e.target.value)} placeholder="e.g. Koramangala Layout" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Contact Phone</label>
-                    <input type="text" required value={pgPhone} onChange={(e) => setPgPhone(e.target.value)} placeholder="e.g. +91 99887 76655" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={pgPhone} onChange={(e) => setPgPhone(e.target.value)} placeholder="e.g. +91 99887 76655" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Assign Owner Profile</label>
-                    <select required value={pgOwnerId} onChange={(e) => setPgOwnerId(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select required value={pgOwnerId} onChange={(e) => setPgOwnerId(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-350 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="">Select Owner</option>
                       {ownersList.map(u => (
                         <option key={u.id} value={u.id}>{u.name} ({u.email})</option>
@@ -1802,13 +1829,13 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Subscription Tier</label>
-                    <select value={pgPlan} onChange={(e) => setPgPlan(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={pgPlan} onChange={(e) => setPgPlan(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="free">Free Trial</option>
                       <option value="pro">Pro Plan</option>
                       <option value="premium">Premium Suite</option>
                     </select>
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     {modalType === "add_pg" ? "Create Registration" : "Save Alterations"}
                   </button>
                 </form>
@@ -1819,15 +1846,15 @@ export default function AdminConsole() {
                 <form onSubmit={handleEditUserSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">User Name</label>
-                    <input type="text" required value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Full Name" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Full Name" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Phone</label>
-                    <input type="text" required value={userPhone} onChange={(e) => setUserPhone(e.target.value)} placeholder="Phone Number" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={userPhone} onChange={(e) => setUserPhone(e.target.value)} placeholder="Phone Number" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Platform Role</label>
-                    <select value={userRole} onChange={(e) => setUserRole(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={userRole} onChange={(e) => setUserRole(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="Tenant">Tenant</option>
                       <option value="Owner">Owner (Landlord)</option>
                       <option value="Manager">Manager</option>
@@ -1837,14 +1864,14 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Associated Property (PG ID)</label>
-                    <select value={userPgId} onChange={(e) => setUserPgId(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={userPgId} onChange={(e) => setUserPgId(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="">None (Global / Admin)</option>
                       {pgs.map(p => (
                         <option key={p.id} value={p.id}>{p.name}</option>
                       ))}
                     </select>
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Save Changes
                   </button>
                 </form>
@@ -1855,7 +1882,7 @@ export default function AdminConsole() {
                 <form onSubmit={handleAddRoomSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Select PG Property</label>
-                    <select value={roomPgId} onChange={(e) => setRoomPgId(e.target.value)} required className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={roomPgId} onChange={(e) => setRoomPgId(e.target.value)} required className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       {pgs.map(p => (
                         <option key={p.id} value={p.id}>{p.name}</option>
                       ))}
@@ -1863,15 +1890,15 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Room Number</label>
-                    <input type="text" required value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} placeholder="e.g. Room 101" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} placeholder="e.g. Room 101" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Floor Level</label>
-                    <input type="number" required value={roomFloor} onChange={(e) => setRoomFloor(e.target.value)} placeholder="e.g. 1" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="number" required value={roomFloor} onChange={(e) => setRoomFloor(e.target.value)} placeholder="e.g. 1" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Bed Capacity</label>
-                    <select value={roomCapacity} onChange={(e) => setRoomCapacity(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={roomCapacity} onChange={(e) => setRoomCapacity(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="1">1 Bed (Single)</option>
                       <option value="2">2 Beds (Double Sharing)</option>
                       <option value="3">3 Beds (Triple Sharing)</option>
@@ -1880,9 +1907,9 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Rent Amount (per month)</label>
-                    <input type="number" required value={roomRent} onChange={(e) => setRoomRent(e.target.value)} placeholder="e.g. 6500" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="number" required value={roomRent} onChange={(e) => setRoomRent(e.target.value)} placeholder="e.g. 6500" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Create Room
                   </button>
                 </form>
@@ -1893,7 +1920,7 @@ export default function AdminConsole() {
                 <form onSubmit={handleAddTenantSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Select PG Property</label>
-                    <select value={tenantPgId} onChange={(e) => { setTenantPgId(e.target.value); setTenantRoomId(""); }} required className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={tenantPgId} onChange={(e) => { setTenantPgId(e.target.value); setTenantRoomId(""); }} required className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       {pgs.map(p => (
                         <option key={p.id} value={p.id}>{p.name}</option>
                       ))}
@@ -1901,19 +1928,19 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Tenant Full Name</label>
-                    <input type="text" required value={tenantName} onChange={(e) => setTenantName(e.target.value)} placeholder="Tenant Name" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={tenantName} onChange={(e) => setTenantName(e.target.value)} placeholder="Tenant Name" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Email Address</label>
-                    <input type="email" required value={tenantEmail} onChange={(e) => setTenantEmail(e.target.value)} placeholder="tenant@example.com" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="email" required value={tenantEmail} onChange={(e) => setTenantEmail(e.target.value)} placeholder="tenant@example.com" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Phone Number</label>
-                    <input type="text" required value={tenantPhone} onChange={(e) => setTenantPhone(e.target.value)} placeholder="+91 98765 43210" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={tenantPhone} onChange={(e) => setTenantPhone(e.target.value)} placeholder="+91 98765 43210" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Select Allocated Room</label>
-                    <select value={tenantRoomId} onChange={(e) => setTenantRoomId(e.target.value)} required className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={tenantRoomId} onChange={(e) => setTenantRoomId(e.target.value)} required className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="">Choose Room</option>
                       {rooms.filter(r => String(r.pg_id) === tenantPgId && r.beds?.some((b: any) => b.status === "available")).map(r => (
                         <option key={r.id} value={r.id}>{r.room_number} (Floor {r.floor} | rent: ₹{r.rent})</option>
@@ -1922,9 +1949,9 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Security Deposit</label>
-                    <input type="number" required value={tenantDeposit} onChange={(e) => setTenantDeposit(e.target.value)} placeholder="e.g. 10000" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="number" required value={tenantDeposit} onChange={(e) => setTenantDeposit(e.target.value)} placeholder="e.g. 1000" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Board Tenant
                   </button>
                 </form>
@@ -1935,11 +1962,11 @@ export default function AdminConsole() {
                 <form onSubmit={handleCollectRentSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Amount Collected (₹)</label>
-                    <input type="number" required value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="number" required value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Payment Mode</label>
-                    <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="UPI">UPI Transfer</option>
                       <option value="Cash">Cash Receipt</option>
                       <option value="Bank Transfer">Bank NetBanking</option>
@@ -1947,9 +1974,9 @@ export default function AdminConsole() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Transaction Reference Code</label>
-                    <input type="text" required value={paymentRef} onChange={(e) => setPaymentRef(e.target.value)} placeholder="TXN Ref Number" className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-sky-500" />
+                    <input type="text" required value={paymentRef} onChange={(e) => setPaymentRef(e.target.value)} placeholder="TXN Ref Number" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Log Collection Record
                   </button>
                 </form>
@@ -1960,14 +1987,14 @@ export default function AdminConsole() {
                 <form onSubmit={handleAssignStaffSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Select Staff Member</label>
-                    <select value={complaintStaffId} onChange={(e) => setComplaintStaffId(e.target.value)} required className="bg-slate-950 border border-slate-800 rounded-xl px-4 h-11 text-xs text-slate-300 focus:outline-hidden focus:border-sky-500">
+                    <select value={complaintStaffId} onChange={(e) => setComplaintStaffId(e.target.value)} required className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-slate-355 focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200">
                       <option value="">Choose Staff</option>
                       {staffList.map(s => (
                         <option key={s.id} value={s.id}>{s.name} ({s.phone || "No Phone"})</option>
                       ))}
                     </select>
                   </div>
-                  <button type="submit" className="mt-2 bg-sky-600 hover:bg-sky-700 text-white font-extrabold h-11 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer">
+                  <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Confirm Assignment
                   </button>
                 </form>
@@ -1994,19 +2021,18 @@ function SidebarTab({ active, label, icon: Icon, onClick }: SidebarTabProps) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-3 w-full h-11 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer select-none ${
+      className={`flex items-center gap-3 w-full h-11 px-4 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all duration-200 cursor-pointer select-none border ${
         active
-          ? "bg-sky-500/10 border border-sky-500/20 text-sky-400"
-          : "border border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/50"
+          ? "bg-gradient-to-r from-violet-500/15 to-indigo-500/10 border-violet-500/20 text-violet-300 shadow-xs shadow-violet-500/5"
+          : "border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 hover:border-slate-800/40"
       }`}
     >
-      <Icon className="w-4.5 h-4.5 shrink-0" />
+      <Icon className={`w-4.5 h-4.5 shrink-0 ${active ? "text-violet-400" : "text-slate-400"}`} />
       <span>{label}</span>
     </button>
   );
 }
 
-// Stats overview card widget
 interface DashboardCardProps {
   title: string;
   value: string | number;
@@ -2017,20 +2043,20 @@ interface DashboardCardProps {
 
 function DashboardCard({ title, value, sub, icon: Icon, color }: DashboardCardProps) {
   const colorMap = {
-    sky: "bg-sky-500/10 border-sky-500/20 text-sky-400",
-    indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-400",
-    emerald: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
-    violet: "bg-violet-500/10 border-violet-500/20 text-violet-400"
+    sky: "bg-violet-500/10 border-violet-500/20 text-violet-400 shadow-xs shadow-violet-500/5",
+    indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-400 shadow-xs shadow-indigo-500/5",
+    emerald: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-xs shadow-emerald-500/5",
+    violet: "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 shadow-xs shadow-cyan-500/5"
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 flex items-center justify-between shadow-xs relative overflow-hidden">
+    <div className="glass-panel glass-panel-hover rounded-2xl p-5 flex items-center justify-between shadow-xs relative overflow-hidden select-none">
       <div className="flex flex-col min-w-0">
-        <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest leading-none">{title}</span>
-        <span className="text-2xl font-black text-white mt-3 leading-none">{value}</span>
-        <span className="text-[10px] font-bold text-slate-400 mt-2 leading-none truncate">{sub}</span>
+        <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">{title}</span>
+        <span className="text-2xl font-black text-white mt-3.5 leading-none">{value}</span>
+        <span className="text-[10px] font-bold text-slate-500 mt-2.5 leading-none truncate">{sub}</span>
       </div>
-      <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${colorMap[color]}`}>
+      <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 transition-transform duration-300 group-hover:scale-110 ${colorMap[color] || colorMap.sky}`}>
         <Icon className="w-5 h-5" />
       </div>
     </div>
