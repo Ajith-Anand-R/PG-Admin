@@ -551,6 +551,18 @@ export default function AdminConsole() {
     }
     setIsLoading(true);
     try {
+      // Check for duplicate room name/number
+      const isDuplicate = rooms.some(
+        (r) =>
+          Number(r.pg_id) === Number(roomPgId) &&
+          r.room_number.trim().toLowerCase() === roomNumber.trim().toLowerCase()
+      );
+      if (isDuplicate) {
+        alert(`Room "${roomNumber}" already exists in this property!`);
+        setIsLoading(false);
+        return;
+      }
+
       // 1. Insert room
       const { data: room, error: roomError } = await supabase
         .from("rooms")
