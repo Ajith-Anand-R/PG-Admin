@@ -103,6 +103,13 @@ export default function AdminConsole() {
   const [tenantPgId, setTenantPgId] = useState("");
   const [tenantRoomId, setTenantRoomId] = useState("");
   const [tenantDeposit, setTenantDeposit] = useState("");
+  const [tenantJoinDate, setTenantJoinDate] = useState(() => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  });
   // Rent Form
   const [paymentAmount, setPaymentAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("UPI");
@@ -214,11 +221,31 @@ export default function AdminConsole() {
       }
 
       setIsLoggedIn(true);
-      const { data: profile } = await supabase
+      let { data: profile } = await supabase
         .from("users")
         .select("*")
         .eq("id", session.user.id)
-        .single();
+        .maybeSingle();
+
+      if (!profile) {
+        // Re-create user profile if it's missing (e.g. truncated public.users)
+        const metadata = session.user.user_metadata || {};
+        const { data: newProfile } = await supabase
+          .from("users")
+          .insert({
+            id: session.user.id,
+            name: metadata.name || metadata.full_name || session.user.email?.split("@")[0] || "Super Admin",
+            email: session.user.email || "",
+            phone: metadata.phone || "",
+            role: metadata.role || "Super Admin",
+            photo: metadata.avatar_url || null
+          })
+          .select()
+          .maybeSingle();
+        if (newProfile) {
+          profile = newProfile;
+        }
+      }
 
       if (profile && profile.role === "Super Admin") {
         setIsAuthorized(true);
@@ -454,7 +481,19 @@ export default function AdminConsole() {
 
       if (!roomDetails) throw new Error("Selected room not found.");
 
-      const availableBed = (roomDetails.beds || []).find((b: any) => b.status === "available");
+      // Fetch active/prebooked/notice tenants in this room to prevent double-assigning beds
+      const { data: activeTenants } = await supabase
+        .from("tenants")
+        .select("bed_id")
+        .eq("room_id", Number(tenantRoomId))
+        .in("status", ["active", "notice", "prebooked"]);
+
+      const activeBedIds = (activeTenants || []).map((t: any) => Number(t.bed_id));
+
+      const availableBed = (roomDetails.beds || [])
+        .filter((b: any) => !b.deleted_at)
+        .find((b: any) => b.status === "available" && !activeBedIds.includes(Number(b.id)));
+
       if (!availableBed) throw new Error("This room is already at full capacity.");
 
       const inviteToken = "ADMIN-INV-" + Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -474,7 +513,8 @@ export default function AdminConsole() {
           deposit: Number(tenantDeposit),
           status: "active",
           invite_token: inviteToken,
-          invite_expires_at: expiryDate.toISOString()
+          invite_expires_at: expiryDate.toISOString(),
+          join_date: tenantJoinDate || null
         })
         .select()
         .single();
@@ -514,12 +554,31 @@ export default function AdminConsole() {
     if (!confirm(`Are you sure you want to evict/remove tenant "${tenant.name}"? This deallocates their bed and voids active logs.`)) return;
     setIsLoading(true);
     try {
-      // 1. Mark bed as available
+      // 1. Determine and update bed status
       if (tenant.bed_id) {
-        await supabase
-          .from("beds")
-          .update({ status: "available" })
-          .eq("id", tenant.bed_id);
+        const bedIdNum = Number(tenant.bed_id);
+        const { data: otherActiveTenant } = await supabase
+          .from("tenants")
+          .select("id")
+          .eq("bed_id", bedIdNum)
+          .in("status", ["active", "notice"])
+          .neq("id", Number(tenant.id))
+          .maybeSingle();
+
+        if (!otherActiveTenant) {
+          const { data: prebookedTenant } = await supabase
+            .from("tenants")
+            .select("id")
+            .eq("bed_id", bedIdNum)
+            .eq("status", "prebooked")
+            .maybeSingle();
+
+          const newBedStatus = prebookedTenant ? "reserved" : "available";
+          await supabase
+            .from("beds")
+            .update({ status: newBedStatus })
+            .eq("id", bedIdNum);
+        }
       }
 
       // 2. Soft delete tenant record (mark as left)
@@ -874,6 +933,13 @@ export default function AdminConsole() {
     setTenantPgId(pgs.length > 0 ? String(pgs[0].id) : "");
     setTenantRoomId("");
     setTenantDeposit("1000");
+    setTenantJoinDate(() => {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    });
     setModalType("add_tenant");
   };
 
@@ -1959,9 +2025,15 @@ export default function AdminConsole() {
                       ))}
                     </select>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Security Deposit</label>
-                    <input type="number" required value={tenantDeposit} onChange={(e) => setTenantDeposit(e.target.value)} placeholder="e.g. 1000" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Security Deposit</label>
+                      <input type="number" required value={tenantDeposit} onChange={(e) => setTenantDeposit(e.target.value)} placeholder="e.g. 1000" className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-400">Joining Date</label>
+                      <input type="date" required value={tenantJoinDate} onChange={(e) => setTenantJoinDate(e.target.value)} className="bg-slate-950/60 border border-slate-850/80 rounded-xl px-4 h-11 text-xs text-white focus:outline-hidden focus:border-violet-500/80 focus:ring-1 focus:ring-violet-500/30 transition-all duration-200" />
+                    </div>
                   </div>
                   <button type="submit" className="mt-2 bg-gradient-to-r from-violet-600 to-indigo-650 hover:from-violet-500 hover:to-indigo-550 text-white font-black h-11 rounded-xl text-xs uppercase tracking-wider transition-all duration-250 cursor-pointer shadow-md shadow-violet-950/20 glow-btn animate-none">
                     Board Tenant

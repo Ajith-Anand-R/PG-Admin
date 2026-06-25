@@ -1,16 +1,16 @@
-# Graph Report - PG Admin  (2026-06-10)
+# Graph Report - PG Admin  (2026-06-24)
 
 ## Corpus Check
-- 11 files · ~20,820 words
+- 14 files · ~21,477 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 108 nodes · 99 edges · 14 communities (10 shown, 4 thin omitted)
+- 112 nodes · 102 edges · 16 communities (11 shown, 5 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `828e9180`
+- Built from commit: `1386e66c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -29,6 +29,7 @@
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 16 edges
@@ -36,11 +37,11 @@
 3. `aliases` - 6 edges
 4. `scripts` - 5 edges
 5. `supabase` - 2 edges
-6. `paths` - 2 edges
-7. `$schema` - 1 edges
-8. `style` - 1 edges
-9. `rsc` - 1 edges
-10. `tsx` - 1 edges
+6. `cn()` - 2 edges
+7. `paths` - 2 edges
+8. `$schema` - 1 edges
+9. `style` - 1 edges
+10. `rsc` - 1 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -48,7 +49,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (14 total, 4 thin omitted)
+## Communities (16 total, 5 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.10
@@ -93,15 +94,15 @@ Nodes (6): tailwind, baseColor, config, css, cssVariables, prefix
 ## Knowledge Gaps
 - **85 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+80 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `dependencies` connect `Community 1` to `Community 5`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `Community 6` to `Community 5`?**
-  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
   _85 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
